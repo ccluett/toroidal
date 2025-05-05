@@ -3,8 +3,6 @@
 
 This repository contains MATLAB scripts designed to generate high-quality, parametric 3D geometries of toroidal propellers for maritime vehicles, for educational and research purposes.
 
-{% include figure.html img="toroidal-uuv.png" width="100%" %}
-
 ## Methodology
 
 The generation process is based on parameterizing the propeller geometry along its **axial span (l/L)**, rather than purely radially. This approach is essential for accurately capturing the complex, continuous shape of the toroidal blades.
@@ -13,8 +11,6 @@ Key geometric parameters are defined as distributions along this axial span in a
 
 *   Standard propeller parameters: local radius (`r_l/R`), chord (`b/D`), pitch (`P/D`), thickness-to-chord ratio (`t/b`), camber-to-chord ratio (`f/b`), skew (`θs`), and rake (`x_l/D`).
 *   Toroidal-specific parameters necessary to define the blade's 3D path and orientation: **lateral angle (`φ`)**, **roll angle (`ψ`)**, and **vertical angle (`α`)**.
-
-{% include figure.html img="toroidalPointCloud.png" width="100%" %}
 
 The mathematical formulation used to transform these distributed parameters into 3D Cartesian coordinates (`x`, `y`, `z`) for points on the blade surface is derived from the method presented by Ye, Wang, and Son (2024). The coordinate system that defines the blade geometry can be expressed as:
 
@@ -35,8 +31,6 @@ $$
     *   It currently implements the **NACA 66 (DTRC Modified)** thickness distribution and **NACA a=0.8** meanline profile using `pchip` interpolation on tabulated data.
     *   The class structure separates meanline and thickness definitions, allowing for easier extension to other airfoil families.
 *   **Cosine Spacing:** For improved geometric fidelity, especially near edges and roots, the discretization along both the axial span (`nSpan`) and the chordwise direction (`nChord`) utilizes cosine spacing (`getCosineSpacing`).
-
-{% include figure.html img="parametric-blades.png" width="100%" %}
 
 ## Integration
 
@@ -66,11 +60,7 @@ This works okay for iteration. I can easily then export the geometry to CFD to d
 
 I would recommend finalizing the exported surface mesh in Rhino 3D (e.g., add hub, check for closed surfaces). As an example, I brought a generated geometry into RANS CFD, using a rotating frame of reference method, and ran a sweep of advance velocities (J = Va / (nd)) by varying inlet velocity for a given RPM.
 
-{% include figure.html img="cfd-toroidal-sim.png" width="100%" %}
-
 The results are consistent with other published research, where the overall efficiency is generally lower than a standard free-tip propeller. This is not surprising, primarily due to the significantly increased wetted surface area of the continuous loop design compared to traditional open-tipped blades, which results in higher frictional drag. While toroidal designs aim to reduce noise by mitigating tip vortex formation, this often comes with a trade-off in peak hydrodynamic efficiency, particularly in open water conditions. The benefits may become more pronounced in specific applications where noise reduction or cavitation mitigation are paramount.
-
-{% include figure.html img="toroidal-coeffs.png" width="100%" %}
 
 ## Repository
 
