@@ -4,7 +4,7 @@ This repository contains MATLAB scripts designed to generate high-quality, param
 
 ## Methodology
 
-The generation process is based on parameterizing the propeller geometry along its **axial span (l/L)**, rather than purely radially. This approach is essential for accurately capturing the complex, continuous shape of the toroidal blades.
+The generation process is based on parameterizing the propeller geometry along its axial span (l/L), rather than purely radially. This approach is essential for accurately capturing the complex, continuous shape of the toroidal blades.
 
 Key geometric parameters are defined as distributions along this axial span in an offset table. These include:
 
@@ -27,13 +27,13 @@ $$
 
 *   **Parameterization:** The code utilizes a base offset table (`getBaseOffsets`) representing a reference toroidal propeller design. Users can modify this base design by applying scaling factors to the distributions of pitch, chord, thickness, camber, skew, and rake via the main `Params` struct in `generateToroidalProp.m`. The hub radius (`hubRadius`) can also be parametrically adjusted.
 *   **Blade Section Definition:** A dedicated `BladeSection.m` class handles the generation of the 2D airfoil profiles at each axial station.
-    *   It currently implements the **NACA 66 (DTRC Modified)** thickness distribution and **NACA a=0.8** meanline profile using `pchip` interpolation on tabulated data.
+    *   It currently implements the NACA 66 (DTRC Modified thickness distribution and NACA a=0.8 meanline profile using `pchip` interpolation on tabulated data.
     *   The class structure separates meanline and thickness definitions, allowing for easier extension to other airfoil families.
 *   **Cosine Spacing:** For improved geometric fidelity, especially near edges and roots, the discretization along both the axial span (`nSpan`) and the chordwise direction (`nChord`) utilizes cosine spacing (`getCosineSpacing`).
 
 ## Integration
 
-This codebase is being developed as a modular tool. It is intended to integrate with the established open-source propeller design framework **OpenProp**, providing capabilities for generating toroidal geometries that can then be used within broader design and analysis workflows.
+This codebase is being developed as a modular tool. It is intended to integrate with the established open-source propeller design framework OpenProp providing capabilities for generating toroidal geometries that can then be used within broader design and analysis workflows.
 
 **Implementation Note on Chord/Pitch Distribution:**
 
